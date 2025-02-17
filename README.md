@@ -1,5 +1,10 @@
 # TinyProgress
 
+![PyPI - Version](https://img.shields.io/pypi/v/tinyprogress)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/tinyprogress)
+![Pepy Total Downloads](https://img.shields.io/pepy/dt/tinyprogress)
+
+
 ![GitHub License](https://img.shields.io/github/license/croketillo/tinyprogress)
 ![GitHub file size in bytes](https://img.shields.io/github/size/croketillo/tinyprogress/tinyprogress/tinyprogress.py)
 
