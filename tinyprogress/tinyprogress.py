@@ -1,16 +1,32 @@
+from typing import Optional, Iterable, Any
 import sys
 
 
-def progress(iterable, total=None, bar_length=40, fill_char='█', empty_char=' ', task_name=None):
+def progress(
+    iterable: Iterable[Any],
+    total: Optional[int] = None,
+    bar_length: int = 40,
+    fill_char: str= '█',
+    empty_char: str = ' ',
+    task_name: Optional[str] = None
+) -> None:
     """
     A lightweight progress bar for iterables.
-    
+
     :param iterable: The iterable to wrap.
+    :type iterable: Iterable[Any]
     :param total: Total number of iterations (optional, inferred from iterable if None).
+    :type total: Optional[int]
     :param bar_length: Length of the progress bar in characters.
+    :type bar_length: int
     :param fill_char: Character used to fill the progress bar.
+    :type fill_char: str
     :param empty_char: Character used to represent remaining progress.
-    :param task_name: Name of the task being executed (optional, defaults to None).
+    :type empty_char: str
+    :param task_name: Name of the task being executed (optional).
+    :type task_name: Optional[str]
+    :return: None
+    :rtype: None
     """
     if total is None:
         try:
