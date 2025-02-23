@@ -1,11 +1,21 @@
-from typing import Generator, Optional, Iterable, TypeVar
+from typing import (
+    Generator,
+    Optional,
+    Iterable,
+    TypeVar,
+    Sized,
+    Protocol
+)
 import sys
 
-T = TypeVar('T')
+T = TypeVar('T', covariant=True)
+
+
+class SizedIterable(Iterable[T], Sized, Protocol): ...
 
 
 def progress(
-    iterable: Iterable[T],
+    iterable: SizedIterable[T],
     total: Optional[int] = None,
     bar_length: int = 40,
     fill_char: str= '█',
@@ -32,7 +42,7 @@ def progress(
     """
     if total is None:
         try:
-            total = len(iterable)  # type: ignore
+            total = len(iterable)
         except TypeError:
             raise ValueError("Total iterations must be specified for non-sized iterables.")
 
