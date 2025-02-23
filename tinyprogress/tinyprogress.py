@@ -2,26 +2,50 @@ from typing import (
     Generator,
     Optional,
     Iterable,
+    Union,
     TypeVar,
     Sized,
-    Protocol
+    Protocol,
+    overload
 )
 import sys
 
-T = TypeVar('T', covariant=True)
+T_co = TypeVar('T_co', covariant=True)
 
 
-class SizedIterable(Iterable[T], Sized, Protocol): ...
+class SizedIterable(Iterable[T_co], Sized, Protocol[T_co]): ...
+
+
+@overload
+def progress(
+    iterable: Iterable[T_co],
+    total: int,
+    bar_length: int = 40,
+    fill_char: str = '█',
+    empty_char: str = ' ',
+    task_name: Optional[str] = None
+) -> Generator[T_co, None, None]: ...
+
+
+@overload
+def progress(
+    iterable: SizedIterable[T_co],
+    total: Optional[int] = None,
+    bar_length: int = 40,
+    fill_char: str = '█',
+    empty_char: str = ' ',
+    task_name: Optional[str] = None
+) -> Generator[T_co, None, None]: ...
 
 
 def progress(
-    iterable: SizedIterable[T],
+    iterable: Union[Iterable[T_co], SizedIterable[T_co]],
     total: Optional[int] = None,
     bar_length: int = 40,
     fill_char: str= '█',
     empty_char: str = ' ',
     task_name: Optional[str] = None
-) -> Generator[T, None, None]:
+) -> Generator[T_co, None, None]:
     """
     A lightweight progress bar for iterables.
 
@@ -41,9 +65,9 @@ def progress(
     :rtype: None
     """
     if total is None:
-        try:
+        if isinstance(iterable, Sized):
             total = len(iterable)
-        except TypeError:
+        else:
             raise ValueError("Total iterations must be specified for non-sized iterables.")
 
     for i, item in enumerate(iterable, 1):
