@@ -13,7 +13,7 @@ import sys
 T_co = TypeVar('T_co', covariant=True)
 
 
-class SizedIterable(Iterable[T_co], Sized, Protocol[T_co]): ...
+class SizedIterable(Iterable[T_co], Sized, Protocol): ...
 
 
 @overload
