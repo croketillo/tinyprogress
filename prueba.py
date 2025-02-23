@@ -1,38 +1,27 @@
-import requests
 from tinyprogress import progress
+import time
 
-# Lista de URLs a visitar
-urls = [
-    "https://example.com",
-    "https://example.org",
-    "https://example.net",
-    "https://example.edu",
-    "https://example.info",
-    "https://example.biz",
-    "https://example.co",
-    "https://example.io",
-    "https://example.ai",
-    "https://example.tech",
-]
+print('\n\nSIMPLE BAR:')
+for i in progress(range(100)):
+    time.sleep(0.05)  # Simulating work
 
-# Cadena a buscar
-target_string = "jmcarrizosa@josecarrizosa.es"
+print('\nMODIFY BAR LENGTH:')
+for i in progress(range(100), bar_length=53):
+    time.sleep(0.05)
 
-# Almacenar resultados
-found_in = []
+print('\nNAMED TASK BAR:')
+for i in progress(range(100), task_name="Downloading:"):
+    time.sleep(0.05)
 
-for url in progress(urls, task_name="Checking URLs"):
-    try:
-        response = requests.get(url, timeout=5)
-        if target_string in response.text:
-            found_in.append(url)
-    except requests.RequestException:
-        print(f"\n❌ Error accessing {url}")
+print('\nCUSTOM CHARS:')
+for i in progress(range(100), fill_char='#', empty_char='-'):
+    time.sleep(0.05)
 
-# Mostrar resultados
-if found_in:
-    print("\n✅ Found the target string in:")
-    for url in found_in:
-        print(f"- {url}")
-else:
-    print("\n❌ The target string was not found in any of the URLs.")
+for i in progress(range(100), fill_char='>', empty_char=' '):
+    time.sleep(0.05)
+
+for i in progress(range(100), fill_char='/', empty_char='-'):
+    time.sleep(0.05)
+
+
+print("\n\n")
