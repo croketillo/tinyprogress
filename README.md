@@ -1,10 +1,9 @@
+![GitHub License](https://img.shields.io/github/license/croketillo/tinyprogress)
+![GitHub file size in bytes](https://img.shields.io/github/size/croketillo/tinyprogress/tinyprogress/tinyprogress.py)
 ![PyPI - Version](https://img.shields.io/pypi/v/tinyprogress)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/tinyprogress)
 ![Pepy Total Downloads](https://img.shields.io/pepy/dt/tinyprogress)
 
-
-![GitHub License](https://img.shields.io/github/license/croketillo/tinyprogress)
-![GitHub file size in bytes](https://img.shields.io/github/size/croketillo/tinyprogress/tinyprogress/tinyprogress.py)
 # TinyProgress
 
 **TinyProgress** is a minimal and lightweight progress bar module for Python. It provides an easy way to track progress in loops and iterables without requiring external dependencies.
