@@ -32,7 +32,7 @@ jobs:
     
     - name: Install mypy dependencies
       run: |
-        mypy --install-types
+        echo y | mypy --install-types
     - name: Type-checking
       run: |
         mypy .
