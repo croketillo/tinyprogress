@@ -1,0 +1,34 @@
+name: Type-check
+
+on:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"  # replace with intended python version
+    - name: Install dependencies
+      run: |
+        if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+        else
+            echo "requirements.txt file not found"
+        fi
+        pip install --upgrade mypy
+    - name: Type-checking
+      run: |
+        mypy .
