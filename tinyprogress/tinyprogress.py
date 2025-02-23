@@ -1,15 +1,17 @@
-from typing import Optional, Iterable, Any
+from typing import Generator, Optional, Iterable, TypeVar
 import sys
+
+T = TypeVar('T')
 
 
 def progress(
-    iterable: Iterable[Any],
+    iterable: Iterable[T],
     total: Optional[int] = None,
     bar_length: int = 40,
     fill_char: str= '█',
     empty_char: str = ' ',
     task_name: Optional[str] = None
-) -> None:
+) -> Generator[T, None, None]:
     """
     A lightweight progress bar for iterables.
 
@@ -30,10 +32,10 @@ def progress(
     """
     if total is None:
         try:
-            total = len(iterable)
+            total = len(iterable)  # type: ignore
         except TypeError:
             raise ValueError("Total iterations must be specified for non-sized iterables.")
-    
+
     for i, item in enumerate(iterable, 1):
         progress = i / total
         filled_length = int(bar_length * progress)
