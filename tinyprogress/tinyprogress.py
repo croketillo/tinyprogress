@@ -10,6 +10,7 @@ from typing import (
 )
 import sys
 
+T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
 
 
@@ -18,34 +19,34 @@ class SizedIterable(Iterable[T_co], Sized, Protocol): ...
 
 @overload
 def progress(
-    iterable: Iterable[T_co],
+    iterable: Iterable[T],
     total: int,
     bar_length: int = 40,
     fill_char: str = '█',
     empty_char: str = ' ',
     task_name: Optional[str] = None
-) -> Generator[T_co, None, None]: ...
+) -> Generator[T, None, None]: ...
 
 
 @overload
 def progress(
-    iterable: SizedIterable[T_co],
+    iterable: SizedIterable[T],
     total: Optional[int] = None,
     bar_length: int = 40,
     fill_char: str = '█',
     empty_char: str = ' ',
     task_name: Optional[str] = None
-) -> Generator[T_co, None, None]: ...
+) -> Generator[T, None, None]: ...
 
 
 def progress(
-    iterable: Union[Iterable[T_co], SizedIterable[T_co]],
+    iterable: Union[Iterable[T], SizedIterable[T]],
     total: Optional[int] = None,
     bar_length: int = 40,
     fill_char: str= '█',
     empty_char: str = ' ',
     task_name: Optional[str] = None
-) -> Generator[T_co, None, None]:
+) -> Generator[T, None, None]:
     """
     A lightweight progress bar for iterables.
 
