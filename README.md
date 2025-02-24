@@ -11,7 +11,7 @@
 **TinyProgress** is a minimal and lightweight progress bar module for Python. It provides an easy way to track progress in loops and iterables without requiring external dependencies.
 
 <p align="center">
-  <img src="images/png.png" alt="Logo tinyprogress">
+  <img src="images/barra.gif" alt="bars">
 </p>
 
 ## 🚀 Features
