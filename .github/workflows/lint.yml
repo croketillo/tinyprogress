@@ -33,6 +33,7 @@ jobs:
     - name: Install mypy dependencies
       run: |
         echo y | mypy --install-types
+        python3 -m pip install types-setuptools
     - name: Type-checking
       run: |
         mypy .
