@@ -56,5 +56,9 @@ for i in progress(range(100), fill_char='#', empty_char='-'):
     time.sleep(0.05)
 ```
 
+## 🤝​ Contributing
+
+First of all, thank you if you are interested in contributing to this project. To contribute, please carefully read the CONTRIBUTING file and follow its guidelines.
+
 ## 📜 License
 GNU General Public License v3, see LICENSE file.
