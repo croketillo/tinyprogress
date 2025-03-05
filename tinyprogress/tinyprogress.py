@@ -15,6 +15,7 @@ import sys
 
 ColorCallable = Callable[[float], str]
 reset_color = lambda _: '\033[0m'  # noqa: E731
+default_color = lambda _: ''
 
 T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
@@ -85,8 +86,10 @@ def progress(
     empty_char = options.get('empty_char', ' ')
     start_char = options.get('start_char', '[')
     end_char = options.get('end_char', ']')
-    text_color = options.get('text_color', reset_color)
-    bar_color = options.get('bar_color', reset_color)
+    text_color = options.get('text_color', default_color)
+    bar_color = options.get('bar_color', default_color)
+    if text_color is default_color:
+        reset_color = default_color
 
     if total is None:
         if isinstance(iterable, Sized):
