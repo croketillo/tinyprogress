@@ -24,4 +24,7 @@ for i in progress(range(100), fill_char='/', empty_char='-'):
     time.sleep(0.05)
 
 
+for i in progress(range(100), fill_char='—', start_char='', end_char=''):
+    time.sleep(0.05)
+
 print("\n\n")
