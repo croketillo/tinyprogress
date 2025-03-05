@@ -79,6 +79,10 @@ def progress(
     :param start_char: The start character (default: [)
     :type end_char: str
     :param end_char: The end character (default: ])
+    :type text_color: Callable[[float], str]
+    :param text_color: A callable that takes in a value from 0 to 1 (0-100%) and returns a string with the color of the text
+    :type bar_color: Callable[[float], str]
+    :param bar_color: Similar to ``text_color`` but for the color of the bar
     :return: None
     :rtype: None
     """
