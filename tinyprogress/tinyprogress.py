@@ -19,7 +19,7 @@ T_co = TypeVar('T_co', covariant=True)
 class SizedIterable(Iterable[T_co], Sized, Protocol): ...
 
 
-class Options(TypedDict):
+class Options(TypedDict, total=False):
     start_char: str
     end_char: str
     fill_char: str
