@@ -8,9 +8,13 @@ from typing import (
     Protocol,
     overload,
     Unpack,
-    TypedDict
+    TypedDict,
+    Callable
 )
 import sys
+
+ColorCallable = Callable[[float], str]
+reset_color = lambda _: '\033[0m'  # noqa: E731
 
 T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
@@ -24,6 +28,8 @@ class Options(TypedDict, total=False):
     end_char: str
     fill_char: str
     empty_char: str
+    text_color: ColorCallable
+    bar_color: ColorCallable
 
 
 @overload
@@ -62,12 +68,16 @@ def progress(
     :type total: Optional[int]
     :param bar_length: Length of the progress bar in characters.
     :type bar_length: int
+    :param task_name: Name of the task being executed (optional).
+    :type task_name: Optional[str]
     :param fill_char: Character used to fill the progress bar.
     :type fill_char: str
     :param empty_char: Character used to represent remaining progress.
     :type empty_char: str
-    :param task_name: Name of the task being executed (optional).
-    :type task_name: Optional[str]
+    :type start_char: str
+    :param start_char: The start character (default: [)
+    :type end_char: str
+    :param end_char: The end character (default: ])
     :return: None
     :rtype: None
     """
@@ -75,6 +85,8 @@ def progress(
     empty_char = options.get('empty_char', ' ')
     start_char = options.get('start_char', '[')
     end_char = options.get('end_char', ']')
+    text_color = options.get('text_color', reset_color)
+    bar_color = options.get('bar_color', reset_color)
 
     if total is None:
         if isinstance(iterable, Sized):
@@ -87,7 +99,11 @@ def progress(
         filled_length = int(bar_length * progress)
         bar = fill_char * filled_length + empty_char * (bar_length - filled_length)
         task_display = f"{task_name} " if task_name else ""
-        sys.stdout.write(f'\r{task_display}{start_char}{bar}{end_char} {int(progress * 100)}%  {i}/{total}')
+        sys.stdout.write((
+            f'\r{text_color(progress)}{task_display}{reset_color(progress)}'
+            f'{bar_color(progress)}{start_char}{bar}{end_char}{reset_color(progress)}'
+            f'{text_color(progress)}{int(progress * 100)}%  {i}/{total}{reset_color(progress)}'
+        ))
         sys.stdout.flush()
         yield item
     sys.stdout.write('\n')

@@ -26,5 +26,26 @@ for i in progress(range(100), fill_char='/', empty_char='-'):
 
 for i in progress(range(100), fill_char='—', start_char='', end_char=''):
     time.sleep(0.05)
+    
+print('\nCUSTOM COLORS')
+def bar_color(progress: float) -> str:
+    if progress < 0.7:
+        return '\033[31m'
+    return '\033[32m'
+
+def text_color(progress: float) -> str:
+    return '\033[35m'
+
+
+for i in progress(
+    range(100),
+    task_name='Colored bar',
+    fill_char='—',
+    start_char=' ',
+    end_char=' ',
+    bar_color=bar_color,
+    text_color=text_color
+):
+    time.sleep(0.05)
 
 print("\n\n")
