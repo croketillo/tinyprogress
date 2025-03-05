@@ -15,7 +15,7 @@ import sys
 
 ColorCallable = Callable[[float], str]
 reset_color = lambda _: '\033[0m'  # noqa: E731
-default_color = lambda _: ''
+default_color = lambda _: ''  # noqa: E731
 
 T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
@@ -89,7 +89,9 @@ def progress(
     text_color = options.get('text_color', default_color)
     bar_color = options.get('bar_color', default_color)
     if text_color is default_color:
-        reset_color = default_color
+        _reset = default_color
+    else:
+        _reset = reset_color
 
     if total is None:
         if isinstance(iterable, Sized):
@@ -103,9 +105,9 @@ def progress(
         bar = fill_char * filled_length + empty_char * (bar_length - filled_length)
         task_display = f"{task_name} " if task_name else ""
         sys.stdout.write((
-            f'\r{text_color(progress)}{task_display}{reset_color(progress)}'
-            f'{bar_color(progress)}{start_char}{bar}{end_char}{reset_color(progress)}'
-            f'{text_color(progress)}{int(progress * 100)}%  {i}/{total}{reset_color(progress)}'
+            f'\r{text_color(progress)}{task_display}{_reset(progress)}'
+            f'{bar_color(progress)}{start_char}{bar}{end_char}{_reset(progress)}'
+            f'{text_color(progress)}{int(progress * 100)}%  {i}/{total}{_reset(progress)}'
         ))
         sys.stdout.flush()
         yield item
