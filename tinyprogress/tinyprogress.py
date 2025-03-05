@@ -6,7 +6,9 @@ from typing import (
     TypeVar,
     Sized,
     Protocol,
-    overload
+    overload,
+    Unpack,
+    TypedDict
 )
 import sys
 
@@ -17,14 +19,20 @@ T_co = TypeVar('T_co', covariant=True)
 class SizedIterable(Iterable[T_co], Sized, Protocol): ...
 
 
+class Options(TypedDict):
+    start_char: str
+    end_char: str
+    fill_char: str
+    empty_char: str
+
+
 @overload
 def progress(
     iterable: Iterable[T],
     total: int,
     bar_length: int = 40,
-    fill_char: str = '█',
-    empty_char: str = ' ',
-    task_name: Optional[str] = None
+    task_name: Optional[str] = None,
+    **options: Unpack[Options]
 ) -> Generator[T, None, None]: ...
 
 
@@ -33,9 +41,8 @@ def progress(
     iterable: SizedIterable[T],
     total: Optional[int] = None,
     bar_length: int = 40,
-    fill_char: str = '█',
-    empty_char: str = ' ',
-    task_name: Optional[str] = None
+    task_name: Optional[str] = None,
+    **options: Unpack[Options]
 ) -> Generator[T, None, None]: ...
 
 
@@ -43,9 +50,8 @@ def progress(
     iterable: Union[Iterable[T], SizedIterable[T]],
     total: Optional[int] = None,
     bar_length: int = 40,
-    fill_char: str= '█',
-    empty_char: str = ' ',
-    task_name: Optional[str] = None
+    task_name: Optional[str] = None,
+    **options: Unpack[Options]
 ) -> Generator[T, None, None]:
     """
     A lightweight progress bar for iterables.
@@ -65,6 +71,11 @@ def progress(
     :return: None
     :rtype: None
     """
+    fill_char = options.get('fill_char', '█')
+    empty_char = options.get('empty_char', ' ')
+    start_char = options.get('start_char', '[')
+    end_char = options.get('end_char', ']')
+
     if total is None:
         if isinstance(iterable, Sized):
             total = len(iterable)
@@ -76,7 +87,7 @@ def progress(
         filled_length = int(bar_length * progress)
         bar = fill_char * filled_length + empty_char * (bar_length - filled_length)
         task_display = f"{task_name} " if task_name else ""
-        sys.stdout.write(f'\r{task_display}[{bar}] {int(progress * 100)}%  {i}/{total}')
+        sys.stdout.write(f'\r{task_display}{start_char}{bar}{end_char} {int(progress * 100)}%  {i}/{total}')
         sys.stdout.flush()
         yield item
     sys.stdout.write('\n')
