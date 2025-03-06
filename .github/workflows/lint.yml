@@ -29,7 +29,7 @@ jobs:
           echo "requirements.txt file not found"
         fi
         pip install --upgrade mypy 
-        pip install setuptools type-colorama
+        pip install setuptools colorama
       
     - name: Type-checking
       run: |
