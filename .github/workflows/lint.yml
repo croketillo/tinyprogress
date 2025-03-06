@@ -28,7 +28,8 @@ jobs:
         else
           echo "requirements.txt file not found"
         fi
-        pip install --upgrade mypy --install-types
+        pip install --upgrade mypy 
+        pip install sertuptools type-colorama
       
     - name: Type-checking
       run: |
