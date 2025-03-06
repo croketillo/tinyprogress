@@ -22,4 +22,7 @@ setup(
         'Topic :: Utilities'
     ],
     python_requires='>=3.6',
+    install_requires=[
+        'colorama>=0.4.4',  # Se añade colorama como dependencia
+    ],
 )
