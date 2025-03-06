@@ -1,5 +1,6 @@
 from tinyprogress import progress
 import time
+from colorama import Fore, Style
 
 print('\n\nSIMPLE BAR:')
 for i in progress(range(100)):
@@ -30,11 +31,11 @@ for i in progress(range(100), fill_char='—', start_char='', end_char=''):
 print('\nCUSTOM COLORS')
 def bar_color(progress: float) -> str:
     if progress < 0.7:
-        return '\033[31m'
-    return '\033[32m'
+        return Fore.RED + Style.BRIGHT
+    return Fore.GREEN + Style.BRIGHT
 
 def text_color(progress: float) -> str:
-    return '\033[35m'
+    return Fore.BLUE
 
 
 for i in progress(

@@ -11,7 +11,7 @@
 **TinyProgress** is a minimal and lightweight progress bar module for Python. It provides an easy way to track progress in loops and iterables without requiring external dependencies.
 
 <p align="center">
-  <img src="images/barra.gif" alt="bars">
+  <img src="images/bar.gif" alt="bars">
 </p>
 
 ## 🚀 Features
@@ -76,6 +76,18 @@ for i in progress(
     text_color=text_color
 ):
     time.sleep(0.05)
+```
+
+You can also use the Colorama module to set the colors.
+```python
+from colorama import Fore
+
+def bar_color(progress: float) -> str:
+    if progress < 0.7:  # 70%
+        return Fore.RED
+    return Fore.GREEN
+
+#...
 ```
 
 ## 🤝​ Contributing
