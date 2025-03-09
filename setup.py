@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="tinyprogress",  # Cambia esto por el nombre de tu paquete
-    version="1.1.0",
+    version="1.2.0",
     author="Croketillo",
     author_email="croketillo@gmail.com",
     description="A lightweight progress bar for Python without dependencies.",
