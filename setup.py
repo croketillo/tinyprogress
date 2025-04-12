@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="tinyprogress",  # Cambia esto por el nombre de tu paquete
+    name="tinyprogress", 
     version="1.2.0",
     author="Croketillo",
     author_email="croketillo@gmail.com",
     description="A lightweight progress bar for Python without dependencies.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/croketillo/tinyprogress",  # Cambia por la URL de tu repositorio
+    url="https://github.com/croketillo/tinyprogress",  
     packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3.8',
@@ -23,6 +23,6 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'colorama>=0.4.4',  # Se añade colorama como dependencia
+        'colorama>=0.4.4',  
     ],
 )
